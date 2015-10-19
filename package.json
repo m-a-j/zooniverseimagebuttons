@@ -1,0 +1,14 @@
+{
+  "title": "Zooniverse image buttons",
+  "name": "zooniverseimagebuttons",
+  "version": "0.1.1",
+  "description": "Buttons that make looking at pictures easier",
+  "main": "index.js",
+  "author": "zorglax",
+  "engines": {
+    "firefox": ">=38.0a1",
+    "fennec": ">=38.0a1"
+  },
+  "license": "MIT"
+}
+
