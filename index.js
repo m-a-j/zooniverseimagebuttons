@@ -1,5 +1,8 @@
 var self = require('sdk/self');
 
+var keyf = 0;
+var keyb = 0;
+
 // a dummy function, to show how tests work.
 // to see how to test this function, look at test/test-index.js
 function dummy(text, callback) {
@@ -73,6 +76,7 @@ function handleClickBack(state) {
   buttonreset.badge =  buttonreset.badge - 1;  
   checkBadge();
   var lastdirection = "back";
+  tabs.activeTab.on("close", handleClickReset);
   
   console.log('active: ' + activeUrl);
   console.log('last: ' + last);
@@ -81,6 +85,10 @@ function handleClickBack(state) {
 }
 
 function handleClickForward(state) {
+	// if (keyf==0){
+	// keyf = !keyf;
+	// console.log('keyf :'+keyf);
+	
   var activeUrl = tabs.activeTab.url;
   var last = activeUrl.substr(activeUrl.length - 8);
   var n = last.substr(0,4);
@@ -89,9 +97,23 @@ function handleClickForward(state) {
   buttonreset.badge =  buttonreset.badge + 1;
   checkBadge();
   var lastdirection = "forward";
+  tabs.activeTab.on("close", handleClickReset);
+  tabs.activeTab.on("ready", function(){console.log('--READY!!-------');});
+  // buttonforward.state("window", {
+    // disabled: true
+  // });
   
   console.log('active: ' + activeUrl);
   console.log('last: ' + last);
   console.log('nIntOld: ' + nIntOld + '  nIntNew: ' + nIntNew);
   tabs.activeTab.url = activeUrl.substr(0, activeUrl.length - 8) + paddy(nIntNew,4) + ".JPG";
+  console.log('activeX: ' + tabs.activeTab.url);
+  // tabs.on('ready', function(tab) {
+    // buttonforward.state("window", {
+      // disabled: false
+    // });
+	// console.log('tab is loaded', tab.title, tab.url);
+  // });
+	
+	// }
 }
