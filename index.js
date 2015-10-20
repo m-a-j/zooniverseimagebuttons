@@ -67,7 +67,7 @@ var buttonreset = buttons.ActionButton({
   badge: 0,
   badgeColor: "#AAAAAA",
   icon: {
-    "16": "./simple-avatar-16.jpg",
+    "16": "./favicon.ico",
   },
   onClick: handleClickReset
 });
