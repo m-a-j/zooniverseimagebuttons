@@ -2,6 +2,42 @@ var self = require('sdk/self');
 
 var buttons = require('sdk/ui/button/action');
 var tabs = require("sdk/tabs");
+var { MatchPattern } = require("sdk/util/match-pattern");
+//http://zooniverse-export.s3-website-us-east-1.amazonaws.com/21484_1000_S02_Season 2_Set 1_EK000109.JPG
+var pattern = new MatchPattern(/.*zooniverse-export\.s3-website-us-east-1\.amazonaws.com\/.*[0-9]{4}.JPG/);
+
+// is this too expensive?
+tabs.on("pageshow", function(tab){
+	if (pattern.test(tab.url)) {
+		//console.log('URL fits: \n', tab.url);
+		buttonforward.state("window", {
+			disabled: false,
+			badgeColor: "#22BB22"
+		});
+		buttonback.state("window", {
+			disabled: false,
+			badgeColor: "#22BB22"
+		});
+		buttonreset.state("window", {
+			disabled: false
+		});
+	} else {
+		//console.log('wrong URL: \n', tab.url);
+		buttonforward.state("window", {
+			disabled: true,
+			badgeColor: "#444444"
+		});
+		buttonback.state("window", {
+			disabled: true,
+			badgeColor: "#444444"
+		});
+		buttonreset.state("window", {
+			disabled: true,
+			badgeColor: "#444444"
+		});
+	}
+});
+
 
 var buttonback = buttons.ActionButton({
   id: "back",
@@ -9,7 +45,9 @@ var buttonback = buttons.ActionButton({
   icon: {
     "16": "./arrow-icon-left.png",
   },
-  onClick: handleClickBack
+  onClick: handleClickBack,
+  badge: " ",
+  badgeColor: "#22BB22"
 });
 
 var buttonforward = buttons.ActionButton({
@@ -18,7 +56,9 @@ var buttonforward = buttons.ActionButton({
   icon: {
     "16": "./arrow-icon-right.png",
   },
-  onClick: handleClickForward
+  onClick: handleClickForward,
+  badge: " ",
+  badgeColor: "#22BB22"
 });
 
 var buttonreset = buttons.ActionButton({
@@ -41,11 +81,11 @@ function paddy(n, p, c) {
 
 function checkBadge() {
 	if (buttonreset.badge < 0) {
-		buttonreset.badgeColor = "#FF0000";
+		buttonreset.badgeColor = "#BB2222";
 	} else if (buttonreset.badge == 0) {
 		buttonreset.badgeColor = "#AAAAAA";
 	} else {
-		buttonreset.badgeColor = "#00FF00";
+		buttonreset.badgeColor = "#22BB22";
 	}
 }
 
