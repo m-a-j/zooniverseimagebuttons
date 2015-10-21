@@ -43,10 +43,7 @@ var pattern = new MatchPattern(/.*zooniverse-export\.s3-website-us-east-1\.amazo
 // is this too expensive?
 tabs.on("pageshow", function(tab){
 	if (pattern.test(tab.url)) {
-		if (buttonreset.badge == 0) {
-			number = parseInt(tabs.activeTab.url.substr(tabs.activeTab.url.length - 8, 4));
-			console.log('number reset to ', number);
-		}
+		setNumber(); // maybe find another solution for this
 		buttonforward.state("window", {
 			disabled: false,
 			badgeColor: "#22BB22"
@@ -82,15 +79,21 @@ function paddy(n, p, c) {
     return (pad + n).slice(-pad.length);
 }
 
-// is the right hand side necessary?
-var number = parseInt(tabs.activeTab.url.substr(tabs.activeTab.url.length - 8, 4));
-console.log('Number set to ', number);
+var number = 0;
+
+function setNumber(){ // maybe find another solution for this
+	if (buttonreset.badge == 0) {
+		number = parseInt(tabs.activeTab.url.substr(tabs.activeTab.url.length - 8, 4));
+	}
+}
+
 
 function checkBadge() {
-	if (buttonreset.badge < 0) {
-		buttonreset.badgeColor = "#BB2222";
-	} else if (buttonreset.badge == 0) {
+	if (buttonreset.badge == 0) {
+		number = parseInt(tabs.activeTab.url.substr(tabs.activeTab.url.length - 8, 4));
 		buttonreset.badgeColor = "#AAAAAA";
+	} else if (buttonreset.badge < 0) {
+		buttonreset.badgeColor = "#BB2222";
 	} else {
 		buttonreset.badgeColor = "#22BB22";
 	}
@@ -102,6 +105,7 @@ function handleClickReset(state) {
 }
 
 function handleClickBack(state) {
+  setNumber(); // maybe find another solution for this
   buttonreset.badge =  buttonreset.badge - 1;  
   var nIntNew = number + buttonreset.badge;
   
@@ -111,7 +115,7 @@ function handleClickBack(state) {
 }
 
 function handleClickForward(state) {
-  console.log('n1forward: \n', number);
+  setNumber(); // maybe find another solution for this
   buttonreset.badge =  buttonreset.badge + 1;  
   var nIntNew = number + buttonreset.badge;
   
