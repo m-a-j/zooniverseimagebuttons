@@ -102,6 +102,7 @@ function checkBadge() {
 function handleClickReset(state) {
 	buttonreset.badge =  0;
 	buttonreset.badgeColor = "#AAAAAA";
+	setNumber(); // is this neccessary? also maybe find another solution for this
 }
 
 function handleClickBack(state) {
