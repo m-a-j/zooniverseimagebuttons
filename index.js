@@ -1,6 +1,40 @@
 var self = require('sdk/self');
 
 var buttons = require('sdk/ui/button/action');
+
+var buttonback = buttons.ActionButton({
+  id: "back",
+  label: "BACK",
+  icon: {
+    "16": "./arrow-icon-left.png",
+  },
+  onClick: handleClickBack,
+  badge: " ",
+  badgeColor: "#22BB22"
+});
+
+var buttonforward = buttons.ActionButton({
+  id: "forward",
+  label: "FORWARD",
+  icon: {
+    "16": "./arrow-icon-right.png",
+  },
+  onClick: handleClickForward,
+  badge: " ",
+  badgeColor: "#22BB22"
+});
+
+var buttonreset = buttons.ActionButton({
+  id: "reset",
+  label: "RESET",
+  badge: 0,
+  badgeColor: "#AAAAAA",
+  icon: {
+    "16": "./favicon.ico",
+  },
+  onClick: handleClickReset
+});
+
 var tabs = require("sdk/tabs");
 var { MatchPattern } = require("sdk/util/match-pattern");
 //http://zooniverse-export.s3-website-us-east-1.amazonaws.com/21484_1000_S02_Season 2_Set 1_EK000109.JPG
@@ -39,40 +73,6 @@ tabs.on("pageshow", function(tab){
 			badgeColor: "#444444"
 		});
 	}
-});
-
-
-var buttonback = buttons.ActionButton({
-  id: "back",
-  label: "BACK",
-  icon: {
-    "16": "./arrow-icon-left.png",
-  },
-  onClick: handleClickBack,
-  badge: " ",
-  badgeColor: "#22BB22"
-});
-
-var buttonforward = buttons.ActionButton({
-  id: "forward",
-  label: "FORWARD",
-  icon: {
-    "16": "./arrow-icon-right.png",
-  },
-  onClick: handleClickForward,
-  badge: " ",
-  badgeColor: "#22BB22"
-});
-
-var buttonreset = buttons.ActionButton({
-  id: "reset",
-  label: "RESET",
-  badge: 0,
-  badgeColor: "#AAAAAA",
-  icon: {
-    "16": "./favicon.ico",
-  },
-  onClick: handleClickReset
 });
 
 // from StackOverflow - adds leading zeros
